@@ -1,13 +1,12 @@
-f = open('antiqs.in', 'r')
+fin = open('antiqs.in', 'r')
+n = int(fin.readline().strip())
 
-n = int(f.read())
 numbers = [i for i in range(1, n + 1)]
 
-numbers[-1] = numbers[n // 2]
-numbers[n // 2] = n
+result = numbers[1:(len(numbers) // 2)] + [numbers[0]] + \
+    [max(numbers)] + numbers[(len(numbers) // 2):-1]
 
-f = open('antiqs.out', 'w')
-f.write(' '.join(str(x) for x in numbers))
-
-# f = open('antiqs.out', 'w')
-# print(count - 2, file=f)
+fout = open('antiqs.out', 'w')
+# fout.write(' '.join(str(x) for x in result))
+for x in result:
+    fout.write('{} '.format(x))

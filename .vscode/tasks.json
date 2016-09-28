@@ -1,0 +1,9 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "g++",
+    "isShellCommand": true,
+    "args": ["-std=c++0x", "-x", "c++", "--static", "-O2", "-Wl,--stack=67108864", "${file}", "-o", "${fileDirname}\\FastHeap.exe"],
+    "showOutput": "always"
+}

@@ -1,5 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "files.autoSave": "onWindowChange",
-    "python.pythonPath": "C:/Users/Lebedev/AppData/Local/Programs/Python/Python35-32/python"
+    "python.pythonPath": "C:/Users/Lebedev/AppData/Local/Programs/Python/Python35-32/python",
+    "files.associations": {
+        "*.cpp": "cpp"
+    }
 }

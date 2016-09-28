@@ -91,3 +91,6 @@ ENV/
 # in/out data
 *.in
 *.out
+
+# compiled c++ tasks
+*.exe
