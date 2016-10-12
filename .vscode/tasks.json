@@ -4,6 +4,16 @@
     "version": "0.1.0",
     "command": "g++",
     "isShellCommand": true,
-    "args": ["-std=c++0x", "-x", "c++", "--static", "-O2", "-Wl,--stack=67108864", "${file}", "-o", "${fileDirname}\\FastHeap.exe"],
+    "args": [
+        "-std=gnu++11",
+        "-x",
+        "c++",
+        "--static",
+        "-O2",
+        "-Wl,--stack=67108864",
+        "${file}",
+        "-o",
+        "${fileDirname}\\FastHeap.exe"
+    ],
     "showOutput": "always"
 }
