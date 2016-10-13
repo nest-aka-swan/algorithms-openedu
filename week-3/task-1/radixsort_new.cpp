@@ -1,12 +1,10 @@
-#include <fstream>
 #include <vector>
 #include <algorithm>
+#include <cstdio>
+using std::fopen;
 
-// #include <iostream>
-
-std::ifstream fin{"radixsort.in"};
-std::ofstream fout{"radixsort.out"};
-
+FILE* fin;
+FILE* fout;
 int n, m, k; // число строк, длина, сколько фаз
 
 // template <typename T>
@@ -54,20 +52,33 @@ void count_sort(std::vector<std::vector<unsigned char>> &vec, std::vector<int> &
     }
 
     // output
+    fout = fopen("radixsort.out", "w");
     for (auto it = order.begin(); it != order.end(); ++it)
-        fout << *it + 1 << ' ';
+        fprintf(fout, "%i ", *it + 1);
 }
 
 int main()
 {
-    fin >> n >> m >> k;
+    fin = fopen("radixsort.in", "r");
+    fscanf(fin, "%d%d%d ", &n, &m, &k);
+
+    char format[8];
+    sprintf(format, "%%%dc ", n);
+    static const auto BUFFER_SIZE = n;
+    unsigned char buf[BUFFER_SIZE + 1];
+
+    std::vector<std::vector<unsigned char>> words;
+    words.reserve(m);
 
     std::vector<int> order(n);
-    std::vector<std::vector<unsigned char>> words(m, std::vector<unsigned char>(n));
 
-    for (auto it1 = words.begin(); it1 != words.end(); ++it1)
-        for (auto it2 = it1->begin(); it2 != it1->end(); ++it2)
-            fin >> *it2;
+    for (auto i = 0; i < m; ++i)
+    {
+        fscanf(fin, format, &buf);
+        words.push_back(std::vector<unsigned char>(buf, buf + sizeof buf / sizeof buf[0] - 1));
+    }
+    fclose(fin);
+    
     std::iota(order.begin(), order.end(), 0);
 
     count_sort(words, order);
