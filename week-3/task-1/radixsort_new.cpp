@@ -2,9 +2,11 @@
 #include <algorithm>
 #include <cstdio>
 using std::fopen;
+// #include <fstream>
 
-FILE* fin;
-FILE* fout;
+FILE *fin;
+// std::ofstream fout{"radixsort.out"};
+FILE *fout;
 int n, m, k; // число строк, длина, сколько фаз
 
 // template <typename T>
@@ -54,7 +56,9 @@ void count_sort(std::vector<std::vector<unsigned char>> &vec, std::vector<int> &
     // output
     fout = fopen("radixsort.out", "w");
     for (auto it = order.begin(); it != order.end(); ++it)
-        fprintf(fout, "%i ", *it + 1);
+        fprintf(fout, "%d ", *it + 1);
+    // for (auto it = order.begin(); it != order.end(); ++it)
+    //     fout << *it + 1 << ' ';
 }
 
 int main()
@@ -62,7 +66,7 @@ int main()
     fin = fopen("radixsort.in", "r");
     fscanf(fin, "%d%d%d ", &n, &m, &k);
 
-    char format[8];
+    char format[100];
     sprintf(format, "%%%dc ", n);
     static const auto BUFFER_SIZE = n;
     unsigned char buf[BUFFER_SIZE + 1];
@@ -78,7 +82,7 @@ int main()
         words.push_back(std::vector<unsigned char>(buf, buf + sizeof buf / sizeof buf[0] - 1));
     }
     fclose(fin);
-    
+
     std::iota(order.begin(), order.end(), 0);
 
     count_sort(words, order);

@@ -67,23 +67,16 @@ int main()
 {
     fin >> n >> k1 >> k2 >> A >> B >> C >> a1 >> a2;
 
-    std::vector<int> numbers(n);
-    numbers[0] = a1;
-    numbers[1] = a2;
+    std::vector<int> numbers;
+    numbers.reserve(n);
+    numbers.push_back(a1);
+    numbers.push_back(a2);
 
     for(auto it = numbers.begin() + 2; it != numbers.end(); ++it)
         *it = A * *(it - 2) + B * *(it - 1) + C;
 
-    // for(auto it = numbers.begin(); it != numbers.end(); ++it)
-    //     std::cout << *(it) << std::endl;
-    // std::cout << std::endl;
-
     for(auto i = k1; i <= k2; ++i)
         fout << *(bfprt(numbers.begin(),  numbers.end(), i)) << ' ';
-
-    // std::cout << *(bfprt(numbers.begin(),  numbers.end(), k1)) << std::endl;
-    // std::cout << *(bfprt(numbers.begin(),  numbers.end(), k2));
-//   bfprt(numbers.begin(),  numbers.end(), k2);
 
     return 0;
 }

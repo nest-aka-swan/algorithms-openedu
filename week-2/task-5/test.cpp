@@ -1,78 +1,35 @@
-#include <iostream>
 #include <vector>
+#include <fstream>
 #include <algorithm>
-using namespace std;
 
-int findMedian(vector<int> vec){
-//    Find median of a vector
-    int median;
-    size_t size = vec.size();
-    median = vec[(size/2)];
-    return median;
-}
+// #include <iostream>
+// using std::cout;
 
-int findMedianOfMedians(vector<vector<int> > values){
-    vector<int> medians;
+std::ifstream fin { "kth.in" };
+std::ofstream fout { "kth.out" };
 
-    for (int i = 0; i < values.size(); i++) {
-        int m = findMedian(values[i]);
-        medians.push_back(m);
-    }
-
-    return findMedian(medians);
-}
-
-void selectionByMedianOfMedians(const vector<int> values, int k){
-//    Divide the list into n/5 lists of 5 elements each
-    vector<vector<int>> vec2D;
-
-    int count = 0;
-    while (count != values.size()) {
-        int countRow = 0;
-        vector<int> row;
-
-        while ((countRow < 5) && (count < values.size())) {
-            row.push_back(values[count]);
-            count++;
-            countRow++;
-        }
-        vec2D.push_back(row);
-    }
-
-//    Calculating a new pivot for making splits
-    int m = findMedianOfMedians(vec2D);
-
-//    Partition the list into unique elements larger than 'm' (call this sublist L1) and
-//    those smaller them 'm' (call this sublist L2)
-    vector<int> L1, L2;
-
-    for (int i = 0; i < vec2D.size(); i++) {
-        for (int j = 0; j < vec2D[i].size(); j++) {
-            if (vec2D[i][j] > m) {
-                L1.push_back(vec2D[i][j]);
-            }else if (vec2D[i][j] < m){
-                L2.push_back(vec2D[i][j]);
-            }
-        }
-    }
-
-//    Recursive calls
-    if ((k - 1) == L1.size()) {
-        cout<<endl<<endl<<"Answer :"<<m;
-    }else if (k <= L1.size()) {
-        return selectionByMedianOfMedians(L1, k);
-    }else if (k > (L1.size() + 1)){
-        return selectionByMedianOfMedians(L2, k-((int)L1.size())-1);
-    }
-
-}
+long n, k1, k2;
+int A, B, C, a1, a2;
 
 int main()
 {
-    int values[] = {1, 4, 6, 3, 2, 9, 5, 8, 7};
-    vector<int> vec(values, values + 25);
+    fin >> n >> k1 >> k2 >> A >> B >> C >> a1 >> a2;
 
-    selectionByMedianOfMedians(vec, 5);
+    std::vector<int> numbers(n);
+    numbers[0] = a1;
+    numbers[1] = a2;
 
-    return 0;
+    for(auto it = numbers.begin() + 2; it != numbers.end(); ++it)
+        *it = A * *(it - 2) + B * *(it - 1) + C;
+
+    std::nth_element(numbers.begin(), numbers.begin() + k1 - 1, numbers.end());
+
+    if (k1 != k2)
+    {
+        std::nth_element(numbers.begin() + k1, numbers.begin() + k2 - 1, numbers.end());
+        std::sort(numbers.begin() + k1, numbers.begin() + k2 - 1);
+    }
+
+    for(auto it = numbers.begin() + k1 - 1; it != numbers.begin() + k2; ++it)
+        fout << *it << ' ';
 }
