@@ -2,6 +2,7 @@
 {
     "files.autoSave": "onWindowChange",
     "python.pythonPath": "C:/Users/Lebedev/AppData/Local/Programs/Python/Python35-32/python",
+    "python.linting.enabled": false,
     "files.associations": {
         "*.cpp": "cpp"
     }
