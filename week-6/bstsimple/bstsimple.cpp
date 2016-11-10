@@ -32,8 +32,6 @@ struct Node
 class BST
 {
     private:
-    Node *root;
-
     Node* minimum(Node *x)
     {
         if (x->left == nullptr)
@@ -68,6 +66,8 @@ class BST
     }
 
     public:
+    Node *root;
+
     Node* next(Node *x)
     {
         if (x->right != nullptr)
@@ -82,6 +82,11 @@ class BST
 
         return y;
     }
+    // Node* prev(Node *x)
+    // {
+
+    //     return y;
+    // }
     Node* insert(Node *x, Node *z)
     {
         if (x == nullptr)
@@ -116,14 +121,20 @@ class BST
     BST(long value) {
         this->root = new Node(value);
     }
+    BST() {}
 };
 
 int main()
 {
     std::string cmd;
     long x;
-    auto tree = new BST(5);
-    tree.insert()
+    auto tree = new BST();
+    auto next = tree->insert(tree->root, new Node(2));
+    tree->insert(next, new Node(5));
+    // tree->insert(tree->root, new Node(3));
+    cout << tree->root->value;
+    cout << next->value;
+    
     // while (fin >> cmd && fin >> x)
     // {
     //     cout << cmd << endl;
