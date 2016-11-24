@@ -1,3 +1,5 @@
+import mmap
+
 def prefix(s):
     n = len(s)
     p = [0]*n
@@ -11,8 +13,9 @@ def prefix(s):
 
     return p
 
-f = open('prefix.in', 'r')
-p = prefix(f.readline().rstrip())
+f = open('prefix.in', 'rb')
+mm = mmap.mmap(f.fileno(), 0)
+p = prefix(mm.readline().rstrip())
 f = open('prefix.out', 'w')
 for x in p:
     f.write('{} '.format(x))
